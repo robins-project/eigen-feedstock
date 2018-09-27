@@ -1,0 +1,46 @@
+{% set version = "3.2.10" %}
+
+{% set build_number = 0 %}
+
+package:
+  name: eigen
+  version: {{ version }}
+
+source:
+  fn: eigen-{{ version }}.tar.gz
+  url: http://bitbucket.org/eigen/eigen/get/{{ version }}.tar.gz
+  md5: 8ad10ac703a78143a4062c9bda9d8fd3
+
+build:
+  number: {{ build_number }}
+
+requirements:
+  build:
+    - {{ compiler("c") }}
+    - {{ compiler("cxx") }}
+    - cmake
+    - pkg-config                     # [not win]
+    - suitesparse
+    - mkl-devel  {{ mkl }}           # [blas_impl == 'mkl']
+    - freeglut
+  host:
+
+test:
+  requires:
+    - {{ compiler("c") }}
+    - {{ compiler("cxx") }}
+  files:
+    - test.cc
+
+  commands:
+    - test -d ${PREFIX}/include/eigen3  # [unix]
+    - if not exist %PREFIX%\\Library\\include\\eigen3 exit 1  # [win]
+
+about:
+  home: http://eigen.tuxfamily.org/
+  license: MPL2
+  summary: C++ template library for linear algebra
+
+extra:
+  recipe-maintainers:
+    - v-turin
