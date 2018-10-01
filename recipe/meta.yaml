@@ -21,7 +21,7 @@ requirements:
     - cmake
     - pkg-config                     # [not win]
     - suitesparse
-    - mkl-devel  {{ mkl }}           # [blas_impl == 'mkl']
+    - {{ blas_impl }}-devel
     - freeglut
   host:
 
