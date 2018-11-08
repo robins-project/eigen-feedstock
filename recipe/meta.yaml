@@ -18,12 +18,13 @@ requirements:
   build:
     # - {{ compiler("c") }}
     # - {{ compiler("cxx") }}
+    # - {{ compiler("fortran") }}
     - cmake
     - pkg-config                     # [not win]
-    - suitesparse
+    - suitesparse {{ suitesparse }}
     - {{ blas_impl }}-devel
-    - freeglut
   host:
+    - suitesparse {{ suitesparse }}
 
 test:
   # requires:
